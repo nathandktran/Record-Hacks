@@ -800,6 +800,7 @@ MonoBehaviour:
   pressedImage: {fileID: -1994176272677361903, guid: c10ca3da8af2daa42b36e5774abdeed4, type: 3}
   keyToPress: 115
   receivedstring: 
+  test: 97
 --- !u!50 &445358133
 Rigidbody2D:
   serializedVersion: 5
@@ -3033,6 +3034,7 @@ MonoBehaviour:
   pressedImage: {fileID: -663638661411368115, guid: 5220947971ac32a4c99b216324cc4af0, type: 3}
   keyToPress: 100
   receivedstring: 
+  test: 97
 --- !u!50 &1323818662
 Rigidbody2D:
   serializedVersion: 5
@@ -3430,6 +3432,7 @@ MonoBehaviour:
   pressedImage: {fileID: -7276052867943865574, guid: 8077b333abd26e644b2dc0e2e0c67a11, type: 3}
   keyToPress: 97
   receivedstring: 
+  test: 97
 --- !u!50 &1465388490
 Rigidbody2D:
   serializedVersion: 5
@@ -3609,6 +3612,7 @@ MonoBehaviour:
   pressedImage: {fileID: 249022036899197820, guid: bfd57d464d22f6a4082f7ed09a8b35ca, type: 3}
   keyToPress: 102
   receivedstring: 
+  test: 97
 --- !u!50 &1465982050
 Rigidbody2D:
   serializedVersion: 5

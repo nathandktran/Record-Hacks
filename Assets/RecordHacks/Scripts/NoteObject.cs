@@ -17,7 +17,17 @@ public class NoteObject : MonoBehaviour {
 			if (canBePressed) {
 				gameObject.SetActive(false);
 
-				GameManager.instance.NoteHit();
+				// GameManager.instance.NoteHit();
+
+				if (transform.position.y > 1.25 || transform.position.y < 0.75) { 
+					GameManager.instance.NormalHit();
+				} else if (transform.position.y > 1.05 || transform.position.y < 0.95) {
+					GameManager.instance.GoodHit();
+				} else {
+					GameManager.instance.PerfectHit();
+				}
+
+
 			}
 		}
 	}
