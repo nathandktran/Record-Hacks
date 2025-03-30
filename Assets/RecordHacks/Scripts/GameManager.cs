@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour {
 	public Text multiText;
 
 	public static GameManager instance;
+
+	public int buttonData;
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start() {
 		instance = this;

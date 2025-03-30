@@ -6,6 +6,10 @@ public class NoteObject : MonoBehaviour {
 
 	public KeyCode keyToPress;
 
+	public int buttonNum;
+
+
+
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start() {
 			
@@ -13,7 +17,7 @@ public class NoteObject : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-		if (Input.GetKeyDown(keyToPress)) {
+		if (Input.GetKeyDown(keyToPress) || ((GameManager.instance.buttonData & (1<<buttonNum)) > 0) ) {
 			if (canBePressed) {
 				gameObject.SetActive(false);
 
