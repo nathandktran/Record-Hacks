@@ -8,6 +8,8 @@ public class NoteObject : MonoBehaviour {
 
 	public int buttonNum;
 
+	public GameObject hitEffect, goodEffect, perfectEffect, missEffect;
+
 
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -17,7 +19,9 @@ public class NoteObject : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-		if (Input.GetKeyDown(keyToPress) || ((GameManager.instance.buttonData & (1<<buttonNum)) > 0) ) {
+		if (Input.GetKeyDown(keyToPress) 
+				// || ((GameManager.instance.buttonData & (1<<buttonNum)) > 0)
+				) {
 			if (canBePressed) {
 				gameObject.SetActive(false);
 
@@ -25,13 +29,14 @@ public class NoteObject : MonoBehaviour {
 
 				if (transform.position.y > 1.25 || transform.position.y < 0.75) { 
 					GameManager.instance.NormalHit();
+					Instantiate(hitEffect, transform.position, hitEffect.transform.rotation);
 				} else if (transform.position.y > 1.05 || transform.position.y < 0.95) {
 					GameManager.instance.GoodHit();
+					Instantiate(goodEffect, transform.position, goodEffect.transform.rotation);
 				} else {
 					GameManager.instance.PerfectHit();
+					Instantiate(perfectEffect, transform.position, perfectEffect.transform.rotation);
 				}
-
-
 			}
 		}
 	}
@@ -48,6 +53,7 @@ public class NoteObject : MonoBehaviour {
 				canBePressed = false;
 
 				GameManager.instance.NoteMiss();
+				Instantiate(missEffect, transform.position, missEffect.transform.rotation);
 			}
 		}
 	}
