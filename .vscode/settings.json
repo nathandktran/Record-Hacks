@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "RECORD hacks.sln"
+    "dotnet.defaultSolution": "Record-Hacks.sln"
 }
