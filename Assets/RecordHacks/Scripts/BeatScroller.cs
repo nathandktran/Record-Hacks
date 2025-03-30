@@ -4,7 +4,7 @@ public class BeatScroller : MonoBehaviour {
 
 	public float beatTempo;
 
-	public bool hasStarted;
+	public static bool hasStarted;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start() {

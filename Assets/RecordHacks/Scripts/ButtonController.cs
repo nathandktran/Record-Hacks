@@ -11,29 +11,43 @@ public class ButtonController : MonoBehaviour {
   public Sprite pressedImage;
 
   public KeyCode keyToPress;
-  // SerialPort data_stream = new SerialPort("/dev/tty.usbserial-0001", 9600);
+  SerialPort data_stream = new SerialPort("/dev/tty.usbserial-0001", 9600);
   public string receivedstring;
   public int buttonNum; // NEW MY LINE
 
   // Initialization
   void Start() {
     theSR = GetComponent<SpriteRenderer>();
-    // data_stream.Open();
+    data_stream.Open();
+
+    // data_stream.Write("START");
   }
+  
 
   // Update once per frame
   void Update() {
-    // receivedstring = data_stream.ReadLine();
-    // Debug.Log(receivedstring);
-    // string[] datas = receivedstring.Split(':');
-    // int buttondata = 0, slidepot = 0, reset = 0;
-    // if (datas.Length == 3) {
-    // buttondata = int.Parse(datas[0]);
-    // slidepot = int.Parse(datas[1]);
-    // reset = int.Parse(datas[2]);
+    // Debug.Log(GameManager.instance.gameFinished);
+    if (data_stream.IsOpen && GameManager.instance.gameFinished == 1) {
+      data_stream.Write(GameManager.instance.currentScore.ToString());
+    }
 
-    // GameManager.instance.buttonData = buttondata;
-  	// }
+    receivedstring = data_stream.ReadLine();
+    // Debug.Log(receivedstring);
+    string[] datas = receivedstring.Split(':');
+    int buttondata = 0, slidepot = 0, reset = 0;
+    if (datas.Length == 3) {
+    buttondata = int.Parse(datas[0]);
+    slidepot = int.Parse(datas[1]);
+    reset = int.Parse(datas[2]);
+
+    GameManager.instance.buttonData = buttondata;
+    GameManager.instance.resetData = reset;
+    GameManager.instance.potData = slidepot;
+
+    if (reset == 1) {
+      GameManager.instance.screen = 1;
+    } 
+  	}
    
     // Debug.Log(buttondata);
     // Debug.Log(slidepot);
@@ -48,12 +62,12 @@ public class ButtonController : MonoBehaviour {
       theSR.sprite = defaultImage;
     }
     // Debug.Log(buttonNum);
-    // if ((buttondata & (1<<buttonNum)) > 0) {
-    //   Debug.Log(buttonNum + " pressed");
-    //   theSR.sprite = pressedImage;
-    // }
-    // if ((buttondata & (1<<buttonNum)) == 0) {
-    //   theSR.sprite = defaultImage;
-    // }
+    if ((buttondata & (1<<buttonNum)) > 0) {
+      // Debug.Log(buttonNum + " pressed");
+      theSR.sprite = pressedImage;
+    }
+    if ((buttondata & (1<<buttonNum)) == 0) {
+      theSR.sprite = defaultImage;
+    }
   }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class GameManager : MonoBehaviour {
 
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour {
 	public int scorePerNote = 100;
 	public int scorePerGood = 125;
 	public int scorePerPerfect = 150;
+	public int scorePerBar = 20;
 	public int currentMult;
 	public int multiplierTracker;
 	public int[] multilpierThresh;
@@ -26,12 +28,17 @@ public class GameManager : MonoBehaviour {
 	public float perfectHits;
 	public float missedHits;
 
+	public int screen = 0;
+	public int gameFinished = 0;
+
 	public GameObject resultsScreen;
 	public Text percentageHit, normalsText, goodsText, perfectsText, missText, rankText, finalScoreText;
 
 	public static GameManager instance;
 
 	public int buttonData;
+	public int resetData;
+	public int potData;
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start() {
 		instance = this;
@@ -44,15 +51,18 @@ public class GameManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
+		
 		if (!startPlaying) {
 			if (Input.anyKeyDown) {
 				startPlaying = true;
-				bs.hasStarted = true;
+				BeatScroller.hasStarted = true;
 				music.Play();
 			}
 		} else {
 			if (!music.isPlaying && !resultsScreen.activeInHierarchy) {
+				
 				resultsScreen.SetActive(true);
+				gameFinished = 1;
 
 				normalsText.text = "" + normalHits;
 				goodsText.text = "" + goodHits;
@@ -61,7 +71,8 @@ public class GameManager : MonoBehaviour {
 
 				float totalHit = normalHits + goodHits + perfectHits;
 
-				float percentHit = totalHit / totalNotes;
+				float percentHit = totalHit / totalNotes * 100;
+				percentHit = (float) Math.Floor((double) percentHit * 100) / 100;
 
 				percentageHit.text = percentHit + "%";
 
@@ -84,6 +95,7 @@ public class GameManager : MonoBehaviour {
 				}
 
 				rankText.text = rankVal;
+				finalScoreText.text = currentScore.ToString();
 			}
 		}
 	}
@@ -129,4 +141,19 @@ public class GameManager : MonoBehaviour {
 		multiText.text = "Multiplier: x" + currentMult;
 		missedHits++;
 	}
+
+	public void BarHit() {
+		Debug.Log("Bar Hit");
+		currentScore += scorePerBar * currentMult;
+		scoreText.text = "Score: " + currentScore;
+	}
+
+	public void BarMiss() {
+		Debug.Log("Bar Missed");
+		multiplierTracker = 0;
+		currentMult = 1;
+		multiText.text = "Multiplier: x" + currentMult;
+	}
+		
+	
 }
